@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="card-body">
+
+        <form>
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="restaurante">Restaurante</label>
+                    <select id="restaurante" [(ngModel)]="restauranteId" name="restaurante" class="form-control">
+                        <option *ngFor="let r of restaurantes" value={{r.id}}>
+                            {{r.nome}}
+                        </option>
+                    </select>
+                </div>
+                <label>Nome</label>
+                <input type="text" name="nome" [(ngModel)]="nome" class="form-control" placeholder="Nome">
+            </div>
+            <div class="form-group">
+                <label>Preço</label>
+                <input type="number" [(ngModel)]="preco" class="form-control" name="preco" placeholder="Preço">
+            </div>
+            <button type="button" [routerLink]="['/prato']" class="btn btn-danger">Cancelar</button>
+            <button type="button" (click)="salvar()" class="btn btn-success">Salvar</button>
+        </form>
+    </div>
+</div>

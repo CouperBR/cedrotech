@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="card-body">
+
+        <form>
+            <div class="form-group">
+                <label>Nome do Restaurante</label>
+                <input type="text" name="nome" [(ngModel)]="nome" class="form-control" placeholder="Nome">
+            </div>
+            <button type="button" [routerLink]="['/restaurante']" class="btn btn-danger">Cancelar</button>
+            <button type="button" (click)="salvar()" class="btn btn-success">Salvar</button>
+        </form>
+    </div>
+</div>
