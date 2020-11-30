@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:WebAPI.Controllers.EnderecoController.ConsultaCep(System.String)">
+            <summary>
+            Consulta e retorna um endereço, através do Cep.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PedidoController.Get">
+            <summary>
+            Retorna todos os pedidos.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PedidoController.Post(WebAPI.Entities.pedido)">
+            <summary>
+            Salva um novo pedido.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PratoController.Get(System.String)">
+            <summary>
+            Retorna pratos por um nome, ou não.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PratoController.Get(System.Int32)">
+            <summary>
+            Retorna um prato pelo id.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PratoController.Post(WebAPI.Entities.prato)">
+            <summary>
+            Cria um novo prato.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PratoController.Put(System.Int32,WebAPI.Entities.prato)">
+            <summary>
+            Salva um prato já existente.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.PratoController.Delete(System.Int32)">
+            <summary>
+            Deleta um prato.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.RestauranteController.Get(System.String)">
+            <summary>
+            Retorna restaurantes, pelo nome ou não.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.RestauranteController.Get(System.Int32)">
+            <summary>
+            Retorna um restaurante pelo id.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.RestauranteController.Post(WebAPI.Entities.restaurante)">
+            <summary>
+            Salva um novo restaurante.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.RestauranteController.Put(System.Int32,WebAPI.Entities.restaurante)">
+            <summary>
+            Salva um restaurante já existente.
+            </summary>
+        </member>
+        <member name="M:WebAPI.Controllers.RestauranteController.Delete(System.Int32)">
+            <summary>
+            Deleta um restaurante.
+            </summary>
+        </member>
+    </members>
+</doc>

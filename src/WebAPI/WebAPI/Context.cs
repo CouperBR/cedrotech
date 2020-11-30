@@ -16,5 +16,8 @@ namespace WebAPI
 
         public virtual DbSet<restaurante> restaurante { get; set; }
         public virtual DbSet<prato> prato { get; set; }
+        public virtual DbSet<pedido> pedido { get; set; }
+        public virtual DbSet<prato_pedido> prato_pedido { get; set; }
+        public virtual DbSet<endereco> endereco { get; set; }
     }
 }

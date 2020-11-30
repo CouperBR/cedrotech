@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using WebAPI.Entities;
+using WebAPI.Services;
 
 namespace WebAPI.Controllers
 {
@@ -13,22 +14,22 @@ namespace WebAPI.Controllers
     [ApiController]
     public class RestauranteController : Controller
     {
-        protected readonly Context _context;
+        protected readonly IRestauranteService _restauranteService;
 
-        public RestauranteController(Context context)
+        public RestauranteController(IRestauranteService restauranteService)
         {
-            _context = context;
+            _restauranteService = restauranteService;
         }
 
+        /// <summary>
+        /// Retorna restaurantes, pelo nome ou não.
+        /// </summary>
         [HttpGet]
         public IActionResult Get(string nome = "")
         {
             try
             {
-                var restaurante = _context.restaurante.AsQueryable();
-                if (!string.IsNullOrEmpty(nome))
-                    restaurante = restaurante.Where(res => res.nome.Contains(nome));
-                return Json(restaurante.ToList());
+                return Json(_restauranteService.Get(nome));
             }
             catch (Exception ex)
             {
@@ -36,18 +37,15 @@ namespace WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Retorna um restaurante pelo id.
+        /// </summary>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             try
             {
-                var restaurante = _context.restaurante.Find(id);
-                if (restaurante == null)
-                {
-                    return StatusCode(500, "Restaurante não encontrato.");
-                }
-
-                return Json(restaurante);
+                return Json(_restauranteService.Get(id));
             }
             catch (Exception ex)
             {
@@ -55,13 +53,15 @@ namespace WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Salva um novo restaurante.
+        /// </summary>
         [HttpPost]
-        public IActionResult Post(string data)
+        public IActionResult Post(restaurante data)
         {
             try
             {
-                _context.restaurante.Add(JsonConvert.DeserializeObject<restaurante>(data));
-                _context.SaveChanges();
+                _restauranteService.Save(data);
                 return Ok();
             }
             catch (Exception ex)
@@ -70,22 +70,15 @@ namespace WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Salva um restaurante já existente.
+        /// </summary>
         [HttpPut("{id}")]
-        public IActionResult Put(int id, string data)
+        public IActionResult Put(int id, restaurante data)
         {
             try
             {
-                var oldRestaurante = _context.restaurante.Find(id);
-                if (oldRestaurante == null)
-                {
-                    return StatusCode(500, "Restaurante não encontrato.");
-                }
-
-                var newRestaurante = JsonConvert.DeserializeObject<restaurante>(data);
-                oldRestaurante.nome = newRestaurante.nome;
-                _context.Entry(oldRestaurante).State = EntityState.Modified;
-                _context.SaveChanges();
-
+                _restauranteService.Update(id, data);
                 return Ok();
             }
             catch (Exception ex)
@@ -94,13 +87,15 @@ namespace WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Deleta um restaurante.
+        /// </summary>
         [HttpDelete]
         public IActionResult Delete(int id)
         {
             try
             {
-                _context.restaurante.Remove(_context.restaurante.Find(id));
-                _context.SaveChanges();
+                _restauranteService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)

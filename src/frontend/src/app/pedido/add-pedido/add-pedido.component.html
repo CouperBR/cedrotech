@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-body">
+        <button (click)="addPrato()" type="button" class="btn btn-success">ADCIONAR PRATO</button>
+        <form class="form-inline" *ngFor='let pa of pratosAdded; let i = index;'>
+            <select class="form-control" [(ngModel)]="pa.id" name="prato_{{i}}" (ngModelChange)="onChangeSelection($event, i)">
+                <option *ngFor="let p of pratos" value={{p.id}} >
+                    {{p.nome}}
+                </option>
+              </select>
+              <input type="text" [disabled]="true" value="R${{pa.preco}}">
+              <input (change)='somarTotal();' type="number" [(ngModel)]="pa.quantidade" name="quantidade_{{i}}" class="form-control" placeholder="Quantidade">
+              <button *ngIf="i != 0" type="button" class="btn btn-danger" (click)="removePrato(i)">-</button>
+        </form>
+
+        <h5>Valor Total: R${{parseFloat(total) | mask: '99999999'}}</h5>
+        <br><br>
+        <div class="form-group">
+            <input (change)="buscaCEP()" type="text" class="form-control" placeholder="Cep" [(ngModel)]="Cep" mask="00000-000">
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Logradouro" [(ngModel)]="logradouro">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Complemento" [(ngModel)]="complemento">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Bairro" [(ngModel)]="bairro">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Localidade" [(ngModel)]="localidade">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="UF" [(ngModel)]="uf">
+        </div>
+
+        <button (click)="finalizar()" type="button" class="btn btn-success">Finalizar</button>
+    </div>
+</div>

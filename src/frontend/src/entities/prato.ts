@@ -1,6 +1,7 @@
 export class Prato {  
     id: Number; 
     nome: string;  
-    preco: Number; 
+    preco; 
     restauranteId: Number;
+    quantidade;
  }  

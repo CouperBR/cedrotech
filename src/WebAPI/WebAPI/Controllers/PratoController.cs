@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using WebAPI.Entities;
+using WebAPI.Services;
 
 namespace WebAPI.Controllers
 {
@@ -14,22 +15,22 @@ namespace WebAPI.Controllers
     [ApiController]
     public class PratoController : Controller
     {
-        protected readonly Context _context;
+        protected readonly IPratoService _pratoService;
 
-        public PratoController(Context context)
+        public PratoController(IPratoService pratoService)
         {
-            _context = context;
+            _pratoService = pratoService;
         }
 
+        /// <summary>
+        /// Retorna pratos por um nome, ou não.
+        /// </summary>
         [HttpGet]
         public IActionResult Get(string nome = "")
         {
             try
             {
-                var prato = _context.prato.AsQueryable();
-                if (!string.IsNullOrEmpty(nome))
-                    prato = prato.Where(pr => pr.nome.Contains(nome));
-                return Json(prato.Include(pr => pr.restaurante).ToList());
+                return Json(_pratoService.Get(nome));
             }
             catch (Exception ex)
             {
@@ -37,18 +38,15 @@ namespace WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Retorna um prato pelo id.
+        /// </summary>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             try
             {
-                var prato = _context.prato.Find(id);
-                if (prato == null)
-                {
-                    return StatusCode(500, "Prato não encontrato.");
-                }
-
-                return Json(prato);
+                return Json(_pratoService.Get(id));
             }
             catch (Exception ex)
             {
@@ -56,13 +54,15 @@ namespace WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Cria um novo prato.
+        /// </summary>
         [HttpPost]
-        public IActionResult Post(string data)
+        public IActionResult Post(prato data)
         {
             try
             {
-                _context.prato.Add(JsonConvert.DeserializeObject<prato>(data));
-                _context.SaveChanges();
+                _pratoService.Save(data);
                 return Ok();
             }
             catch (Exception ex)
@@ -71,24 +71,15 @@ namespace WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Salva um prato já existente.
+        /// </summary>
         [HttpPut("{id}")]
-        public IActionResult Put(int id, string data)
+        public IActionResult Put(int id, prato data)
         {
             try
             {
-                var oldPrato =_context.prato.Find(id);
-                if (oldPrato == null)
-                {
-                    return StatusCode(500, "Prato não encontrato.");
-                }
-
-                var newPrato = JsonConvert.DeserializeObject<prato>(data);
-                oldPrato.nome = newPrato.nome;
-                oldPrato.preco = newPrato.preco;
-                oldPrato.restaurante = _context.restaurante.Find(newPrato.restauranteId);
-                _context.Entry(oldPrato).State = EntityState.Modified;
-                _context.SaveChanges();
-
+                _pratoService.Update(id, data);
                 return Ok();
             }
             catch (Exception ex)
@@ -97,13 +88,15 @@ namespace WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Deleta um prato.
+        /// </summary>
         [HttpDelete]
         public IActionResult Delete(int id)
         {
             try
             {
-                _context.prato.Remove(_context.prato.Find(id));
-                _context.SaveChanges();
+                _pratoService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)

@@ -9,32 +9,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './components/main/main.component';
-import { ShowPratoComponent } from './components/prato/show-prato/show-prato.component';
-import { AddPratoComponent } from './components/prato/add-prato/add-prato.component';
-import { ShowRestauranteComponent } from './components/restaurante/show-restaurante/show-restaurante.component';
-import { AddRestauranteComponent } from './components/restaurante/add-restaurante/add-restaurante.component';
 import { FormsModule } from '@angular/forms';
-
-const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: MainComponent },
-  { path: 'prato', component: ShowPratoComponent},
-  { path: 'prato/add', component: AddPratoComponent},
-  { path: 'prato/update/:id', component: AddPratoComponent},
-  { path: 'restaurante', component: ShowRestauranteComponent},
-  { path: 'restaurante/add', component: AddRestauranteComponent},
-  { path: 'restaurante/update/:id', component: AddRestauranteComponent},
-];
+import { AppRoutingModule } from './app-routing.module';
+import { RestauranteModule } from './restaurante/restaurante.module';
+import { PratoModule } from './prato/prato.module';
+import { PedidoModule } from './pedido/pedido.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    MainComponent,
-    ShowPratoComponent,
-    AddPratoComponent,
-    ShowRestauranteComponent,
-    AddRestauranteComponent
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -42,8 +27,11 @@ const routes: Routes = [
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     HttpClientModule,
-    RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    AppRoutingModule,
+    RestauranteModule,
+    PratoModule,
+    PedidoModule
   ],
   providers: [],
   bootstrap: [AppComponent]
