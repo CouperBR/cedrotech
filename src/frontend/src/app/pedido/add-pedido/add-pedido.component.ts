@@ -4,6 +4,7 @@ import { Prato } from '../../../entities/prato';
 import { Endereco } from 'src/entities/endereco';
 import { Pedido } from 'src/entities/pedido';
 import {ActivatedRoute, Router} from "@angular/router"
+import { WebsocketService } from 'src/app/websocket.service';
 
 @Component({
   selector: 'app-add-pedido',
@@ -21,7 +22,10 @@ export class AddPedidoComponent implements OnInit {
   public bairro = "";
   public localidade = "";
   public uf = "";
-  constructor(private dataService: DataService, private router: Router, private actRoute: ActivatedRoute) { }
+  constructor(private dataService: DataService, 
+    private router: Router, 
+    private actRoute: ActivatedRoute,
+    private wsService: WebsocketService) { }
 
   ngOnInit(): void {
     this.total = 0;
@@ -98,6 +102,7 @@ export class AddPedidoComponent implements OnInit {
     pedido.total = this.total;
     const promise = await this.dataService.sendPostRequest("pedido", JSON.stringify(pedido) ).toPromise();
 
+    this.wsService.socketEmit();
     this.router.navigate(['/home'])
   }
 }

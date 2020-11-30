@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { PedidoRoutingModule } from './pedido-routing.module';
 import { AddPedidoComponent } from './add-pedido/add-pedido.component';
 import { FormsModule } from '@angular/forms';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { ShowPedidosComponent } from './show-pedidos/show-pedidos.component'
 
 
 @NgModule({
-  declarations: [AddPedidoComponent],
+  declarations: [AddPedidoComponent, ShowPedidosComponent],
   imports: [
     CommonModule,
     PedidoRoutingModule,

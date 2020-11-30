@@ -12,20 +12,18 @@ namespace WebAPI.Entities
     public class prato
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
         public string nome { get; set; }
 
         public decimal preco { get; set; }
 
-        public restaurante restaurante { get; set; }
+        public virtual restaurante restaurante { get; set; }
 
         [ForeignKey("restaurante")]
         public int restauranteId { get; set; }
-
-        [NotMapped]
+        
         public int quantidade { get; set; }
-
     }
 }

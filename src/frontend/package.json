@@ -23,6 +23,7 @@
     "ngx-bootstrap": "^6.2.0",
     "ngx-mask": "^11.1.4",
     "rxjs": "~6.6.0",
+    "socket.io-client": "^3.0.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

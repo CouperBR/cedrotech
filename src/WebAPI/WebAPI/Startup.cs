@@ -58,7 +58,9 @@ namespace WebAPI
             services.AddDbContext<Context>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                 );
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddFluentValidation();
+            services.AddMvc().AddJsonOptions(
+            options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+        ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddFluentValidation();
             services.AddTransient<IValidator<pedido>, PedidoValidator>();
             services.AddTransient<IValidator<restaurante>, RestauranteValidator>();
             services.AddTransient<IValidator<prato>, PratoValidator>();

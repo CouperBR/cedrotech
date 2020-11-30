@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 
@@ -34,6 +34,12 @@ export class DataService {
         .pipe(catchError(this.handleError));
   }
 
+  public sendGetPedidoRequest(typemodel){
+    
+    return this.httpClient.get(this.REST_API_SERVER + typemodel)
+        .pipe(catchError(this.handleError));
+  }
+
   public sendGetByIdRequest(typemodel, id){
     return this.httpClient.get(this.REST_API_SERVER + typemodel + '/' + id)
     .pipe(catchError(this.handleError));
@@ -45,7 +51,7 @@ export class DataService {
     const body = data;
     const params = new HttpParams()
     .set('data', data)
-    return this.httpClient.post(this.REST_API_SERVER + typemodel, body, {'headers': headers, params: params})
+    return this.httpClient.post(this.REST_API_SERVER + typemodel, body, {'headers': headers, params: params, responseType: 'json'})
     .pipe(catchError(this.handleError));
   }
 

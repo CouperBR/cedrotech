@@ -14,6 +14,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RestauranteModule } from './restaurante/restaurante.module';
 import { PratoModule } from './prato/prato.module';
 import { PedidoModule } from './pedido/pedido.module';
+import { WebsocketService } from './websocket.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { PedidoModule } from './pedido/pedido.module';
     PratoModule,
     PedidoModule
   ],
-  providers: [],
+  providers: [WebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
