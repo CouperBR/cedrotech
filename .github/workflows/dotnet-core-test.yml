@@ -1,18 +1,32 @@
-name: .NET Core Build with Tests
+name: NET_Core_CI
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - master
+      - dev
   pull_request:
-    branches: [ master ]
+    branches: 
+      - master
+      - dev
 
 jobs:
   build:
-    runs-on: windows-latest
-    name: Dotnet Side by Side testing
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+    
     steps:
-    - uses: actions/checkout@main
-    - uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '2.2.x' # SDK Version to use; x will use the latest version of the 3.1 channel
-    - run: dotnet build WebAPI.Test
+        dotnet-version: 2.2.x
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+      working-directory: ./src/WebAPI
+    - name: Unit Tests
+      run: dotnet test
+      working-directory: ./src/WebAPI
