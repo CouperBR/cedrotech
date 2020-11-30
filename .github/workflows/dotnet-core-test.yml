@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     name: Dotnet Side by Side testing
     steps:
     - uses: actions/checkout@main
