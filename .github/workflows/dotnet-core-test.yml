@@ -9,13 +9,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Dotnet Side by Side testing sample
+    name: Dotnet Side by Side testing
     steps:
       - uses: actions/checkout@v2
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '2.2.103'
+          dotnet-version: '2.2.x'
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
